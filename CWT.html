@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<p>Click the button to display the array values after the split.</p>
+
+<button onclick="analyze()">Analyze</button>
+
+<p id="displayText"></p>
+
+<script>
+function compareWordCount(a,b) {
+  if (parseInt(a) < parseInt(b))
+    return -1;
+  return 1;
+}
+
+function analyze() {
+    var str = "this is a test test this";
+    var res = str.split(" ");
+    document.getElementById("displayText").innerHTML = res;
+    document.getElementById("displayText").innerHTML += "<br/><br/>The amount of words is: " + res.length + "<br/><br/><br/>";
+
+    document.getElementById("displayText").innerHTML += "The list of words:<br/><br/>";
+
+    var words = [];
+
+    var wordsWithCount = [];
+
+    for (i = 0; i < res.length; i++) {
+        words.push(res[i]);
+        document.getElementById("displayText").innerHTML += words[i] + "<br/><br/>";
+    }
+
+    var current = null;
+    var cnt = 0;
+    for (var i = 0; i < words.length; i++) {
+        if (words[i] != current) {
+            if (cnt > 0) {
+                document.getElementById("displayText").innerHTML += "<br/><br/>" + cnt + " - " + current + "<br/>";
+                wordsWithCount.push(cnt + " - " + current);
+            }
+            current = words[i];
+            cnt = 1;
+        } else {
+            cnt++;
+        }
+    }
+
+    if (cnt > 0) {
+        document.getElementById("displayText").innerHTML += "<br/><br/>" + cnt + " - " + current + "<br/>";
+        wordsWithCount.push(cnt + " - " + current);
+    }
+
+    wordsWithCount.sort(compareWordCount);
+
+    document.getElementById("displayText").innerHTML += "<br/><br/><br/><br/><br/>The list of SORTED words:<br/><br/>";
+
+    for (i = 0; i < wordsWithCount.length; i++) {
+        document.getElementById("displayText").innerHTML += wordsWithCount[i] + "<br/><br/>";
+    }
+}
+</script>
+
+</body>
+</html>
